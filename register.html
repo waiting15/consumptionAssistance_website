@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<title>消费辅助系统_注册页面</title>
+
+	<style>
+		* {
+			margin:0;
+			padding:0;
+		}
+
+		.style1 {
+			background-color: #000000CC;
+			color: whitesmoke;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class="container.fluid style1">
+		<h1 style="margin:0;">消费辅助系统1.0</h1>
+	</div>
+
+	<div class="container p-5 border" style="width:500px;">
+		<h2 style="text-align:center">注册</h2>
+		<form name="registerForm" method="post" action="/register/process">
+			<div class="mb-3 mt-3">
+				<label for="usr" class="form-label">用户名</label>
+				<input type="text" class="form-control" id="usr" name="usr" placeholder="请输入用户名">
+			</div>
+			<div class="mb-3 mt-3">
+				<label for="password" class="form-label">密码</label>
+				<input type="password" class="form-control" id="pwd" name="pwd" placeholder="请输入密码">
+			</div>
+			<input type="submit" class="btn btn-success" value="注册">
+			<a class="btn btn-secondary" role="button" href="/login">前往登录页面</a>
+		</form>
+	</div>
+</body>
+</html>

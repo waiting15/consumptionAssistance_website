@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<title>消费辅助系统_项目页面</title>
+
+	<style>
+		* {
+			margin:0;
+			padding:0;
+		}
+
+		.style1 {
+			background-color: #000000CC;
+			color: whitesmoke;
+		}
+
+		.sidebar {
+			list-style-type: none;
+    		margin: 0;
+    		padding: 0;
+    		width: 13%;
+    		position: fixed;
+    		height: 100%;
+    		overflow: auto;
+		}
+
+		.sidebarblock {
+			display: block;
+			color: black;
+			padding: 8px 16px;
+			text-decoration: none;
+		}
+		ul li.active {
+			background-color: #000000CC;
+		}
+		ul li.active a {
+			color: whitesmoke;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class="container.fluid style1">
+		<h1 style="margin:0;">消费辅助系统1.0  <small>用户：（未登录）</small></h1>
+	</div>
+
+	<nav class="navbar navbar-expand-sm navbar-dark style1">
+		<div class="container.fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="index_main.html">首页</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">项目</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="sidebar">
+
+		<ul id="sidebarlist" class="nav flex-column">
+			<li id="newsidebarblock" class="nav-item"><a class="nav-link sidebarblock" role="button">+新建项目</a></li>
+		</ul>
+	</div>
+
+	<div id="initBlock" class="container">
+	</div>
+
+</body>
+<script src="./client_side/project_init.js"></script>
+<script>
+	var block_number = 0;
+	var block_active = 0;
+	var block = document.getElementById("newsidebarblock");
+	
+	//设置监听
+	block.addEventListener("click",createSidebarBlock);
+</script>
+</html>
