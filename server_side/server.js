@@ -14,16 +14,19 @@ app.use(session({
 	saveUninitialized: 'false'
 }));
 
+/*  渲染页面的设置，引擎ejs  */
+app.set('views',path.join(__dirname,'../'));
+app.set('view engine','html');
+app.engine('.html',require('ejs').__express);
+
 //处理登录表单
 app.post('/login/process',urlencodedParser,function(req,res) {
 	var user_name = req.body.usr;
 	var user_password = req.body.pwd;
-	res.setHeader("Content-Type","text/html");
 
 	/* 连接数据库验证登录，返回用户名或false */
-	mysqlConnect.user_login(user_name,user_password,dataDirect.loginDirect_index);
+	mysqlConnect.user_login(req,res,user_name,user_password,dataDirect.loginDirect_index);
 
-	res.end();
 });
 
 //处理注册表单
@@ -41,7 +44,16 @@ var server = app.listen(8888,function() {
 
 //处理新建项目表单
 app.get('/project_init',function(req,res) {
-
+	if(req.session.userId) {
+		var user_id = req.session.userId;
+	} else {
+		//请重新登录
+		console.log("登陆状态失效，请重新登录");
+	}
+	var project_name = req.query.name;
+	var project_budget = req.query.budget;
+	var project_demands = req.query.demands;
+	mysqlConnect.user_projectInit(req,res,user_id,project_name,project_budget,project_demands);
 });
 
 //处理打卡项目表单
@@ -53,13 +65,26 @@ app.get('/',function(req,res) {
 app.get('/index',function(req,res) {
 	if(req.session.userName) {
 		//用render()渲染，把index_main.html作为模版文件
+		res.render('index_main',{username: req.session.userName});
 	} else {
 		res.sendFile(path.join(__dirname,'../','index.html'));
 	}
 });
+//登录页面请求
 app.get('/login',function(req,res) {
 	res.sendFile(path.join(__dirname,'../','login.html'));
 });
+//注册页面请求
 app.get('/register',function(req,res) {
 	res.sendFile(path.join(__dirname,'../','register.html'));
 });
+//项目页面请求
+app.get('/project',function(req,res) {
+	//查找项目信息
+	show_projectList(req,res,user_id,dataDirect.projectList_prosess);
+	//渲染页面，加载项目信息
+});
+//打卡页面请求
+app.get('/daka',function(req,res) {
+
+})

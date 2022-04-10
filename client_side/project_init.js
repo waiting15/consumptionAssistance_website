@@ -46,8 +46,8 @@ function createSidebarBlock() {
 		//设置属性
 		formList.setAttribute("id","form_"+id_number);
 		formList.setAttribute("style","display:block;");
-		formList.setAttribute("action","http://127.0.0.1:8888/project_init"); //表单action
-		formList.setAttribute("method","post") // post请求
+		formList.setAttribute("action","localhost:8888/project_init"); //表单action
+		formList.setAttribute("method","get") // get请求
 		listBlock_1.setAttribute("class","mb-3 mt-3");
 		listBlock_2.setAttribute("class","mb-3 mt-3");
 		listBlock_3.setAttribute("class","mb-3 mt-3");
