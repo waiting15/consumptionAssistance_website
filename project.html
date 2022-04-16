@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/static/jquery-3.6.0.min.js"></script>
 	<title>消费辅助系统_项目详情</title>
 
 	<style>
@@ -62,32 +63,50 @@
 		</div>
 	</nav>
 	<div class="row">
-		<div class="col-sm-1">
+		<div class="col-sm-1">  <!-- 侧边栏 -->
 			<div class="sticky-top">
 				<ul id="sidebarlist" class="nav flex-column">
 					<li id="block_0" class="nav-item"><a class="nav-link sidebarblock" role="button">iphone</a></li>
+
+					<!-- 此处为渲染区域 -->
+					<% projectList.forEach(function(item) { %>
+						<li class="nav-item" id= "project_<%= item.project_id %>" >
+							<a class="nav-link sidebarblock" role="button" onclick="showProject_detail(<%=item.project_id %>,'project_')" >
+								<%= item.project_name %>
+							</a>
+						</li>
+					<% }); %>
+
 					<li id="newsidebarblock" class="nav-item"><a class="nav-link sidebarblock" role="button">+新建项目</a></li>
 				</ul>
 			</div>
 		</div>
 
-		<div class="col">
+		<div class="col">  <!-- 右侧主体显示区域 -->
 			<div id="initBlock" class="container pt-5 border">
-				<div id="detailsBlock" class="container pt-5 border" style="display:block;">
-				<h1 style="float:left;"><%= project_name %></h1>
+				<!-- 以下为项目详情内容 模版 -->
+				<% projectList.forEach(function(item) { %>
+
+				<div id="project_block_<%= item.project_id %>" class="container pt-5 border" style="display:none;">
+
+				<h1 style="float:left;"><%= item.project_name %></h1>
+				<!-- 打卡按钮 -->
 				<button class="btn btn-warning" onclick="">
-					<%= isdaka %>
+					<%= isDaka %>
 				</button>
+				<!-- 查看建议按钮 -->
+				<button class="btn btn-success" onclick=""></button>
+				
 				<div class="row p-5">
-					<div class="col" id="detailTimestart">立项时间：</div>
-					<div class="col" id="detailBudget">预算：</div>
+					<div class="col" id="detailTimestart">立项时间：<%= item.initDay %></div>
+					<div class="col" id="detailBudget">预算：<%= item.budget %></div>
 				</div>
-				<div class="container p-5 border" onclick="showDepreciateForm()" role="button">
+				<div class="container p-5 border" onclick="" role="button">
 					<h3>贬值情况如何？</h3>
 					<br>
 
 					<!-- 贬值表单 -->
-					<form id="depreciateForm"action="http://localhost:8888/depreciate" method="get" style="display: block;">
+					<form id="depreciateForm"action="/project/depreciate" method="get" style="display: block;">
 						<div class="form-check mt-3">
 							<input class="form-check-input"type="radio" id="BianZhiGreat" name="depreciate">
 							<label class="form-check-label" for="BianZhiGreat">基本不贬值，还可能升值</label>
@@ -105,12 +124,12 @@
 					</form>
 
 				</div>
-				<div class="container p-5 border" onclick="showPriceStabilityForm()" role="button">
+				<div class="container p-5 border" onclick="" role="button">
 					<h3>近期价格是否稳定（鼠标移动此处高亮</h3>
 					<br>
 
 					<!-- 价格稳定表单 -->
-					<form id="priceForm" action="http://localhost:8888/priceStability" method="get" style="display: block;">
+					<form id="priceForm" action="/project/priceStability" method="get" style="display: block;">
 						<div class="form-check mt-3">
 							<input class="form-check-input"type="radio" id="wildFluctuations" name="priceStability">
 							<label class="form-check-label" for="wildFluctuations">近期剧烈波动</label>
@@ -143,20 +162,26 @@
 					</table>
 				</div>
 				</div>
+
+				<% }); %>
+				<!-- 以上为 模版 -->
 			</div>
 		</div>
 	</div>
 
 </body>
-<script src="./client_side/project_init.js"></script>
+<script src="/static/project_init.js"></script>
 <script>
-	/* 待实现的功能：页面加载时查询数据库获取项目id，侧边栏显示已有的项目
+	/* 实现 项目详情的显示
 	*/
 	$(document).ready(function() {
 
 	});
+	/* 侧边栏 未保存项目id：block_value  项目id：project_value */
 	var block_number = 0;
-	var block_active = 0;
+	var last_block_type = ""; //储存last选中状态的的类型(block_ 或 project_)
+	var last_block_id_number= 0; //储存last选中状态的id_number;
+	var block_active = last_block_type + last_block_id_number;
 	var block = document.getElementById("newsidebarblock");
 	
 	//设置监听

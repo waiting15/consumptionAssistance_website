@@ -3,7 +3,7 @@
 	root_config = {
 		host	:'localhost',
 		user	:'root',
-		password:'442001',
+		password:'44200119',
 		database:'consumer'
 	};
 
@@ -64,7 +64,7 @@ function user_login(req,res,username,password,callback) {
 		}
 		if(result.length===0) {
 			console.log('用户名不存在或密码错误');
-			callback(req,res,false，result);
+			callback(req,res,false,result);
 			connection.end();
 		}
 	});
@@ -75,7 +75,7 @@ function show_projectList(req,res,user_id,callback) {
 	var connection = mysql.createConnection( root_config);
 	connection.connect();
 	//获取project_name、id、立项时间的列表，计算未打卡的项目
-	var getProjectListSql="select project_name,project.project_id,budget,initDay,dakatimes,datediff(curdate(),dakadays) from project,daka where user_id=?&&project.project_id=daka.project_id";
+	var getProjectListSql="select project_name,project.project_id,suggest,budget,initDay,dakatimes,datediff(curdate(),dakadays) from project,daka where user_id=?&&project.project_id=daka.project_id";
 	//将结果返回给callback()处理
 	connection.query(getProjectListSql,[user_id],function(err,result) {
 		if(err) {
@@ -93,6 +93,7 @@ function user_projectInit(req,res,user_id,project_name,budget,demands) {
 	connection.connect();
 	var insertSql = "insert into project(user_id,project_name,budget,demands,initDay) value(?,?,?,?,curdate())";
 	var insertInfo = [user_id,project_name,budget,demands];
+
 	connection.query(insertSql,insertInfo,function(err,result) {
 		if(err) {
 			console.log('[SELECT ERROR] - ',err.message);
@@ -116,7 +117,7 @@ function user_projectInit(req,res,user_id,project_name,budget,demands) {
 			var data = JSON.parse(dataString);
 			var insertDakasql = "insert into daka(project_id,dakatimes) value(?,?)";
 			//执行初始化打卡表
-			connection.query(insertDakasql,[data.project_id,0],function(ree,result) {
+			connection.query(insertDakasql,[data[0].project_id,0],function(err,result) {
 				if(err) {
 					console.log('[SELECT ERROR] - ',err.message);
 					console.log('connect_end by err');
@@ -134,7 +135,8 @@ function user_projectInit(req,res,user_id,project_name,budget,demands) {
 module.exports = {
 	user_register,
 	user_login,
-	user_projectInit
+	user_projectInit,
+	show_projectList
 }
 
 

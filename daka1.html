@@ -1,0 +1,81 @@
+<!-- 接受dakatimes,project_name,project_id -->
+<!-- 返回dakadays,dakatimes,daka值 -->
+<!-- 提交后，将选择的结果转换为对应的数值并存储至数据库对应项目id的daka表中，更新dakadays,dakatimes -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<title>消费辅助系统_打卡页面</title>
+
+	<style>
+		* {
+			margin:0;
+			padding:0;
+		}
+
+		.style1 {
+			background-color: #000000CC;
+			color: whitesmoke;
+		}
+	</style>
+</head>
+<body>
+	<div class="container.fluid style1">
+		<h1 style="margin:0;float:left;">消费辅助系统1.0</h1>
+		<h1 id="title_user" style="margin:0;text-align: right;">用户名：<%= username %></h1>
+	</div>
+	<nav class="navbar navbar-expand-sm navbar-dark style1">
+		<div class="container.fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/index">首页</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/project">项目</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container p-5 border">
+
+		<!-- 第一天打卡 -->
+		<div class="container border" id="daka1" style="display:block" >
+			<h1>第一天打卡（项目：）</h1>
+			<br>
+			<h2>您是通过什么渠道了解到这款产品的？</h2>
+			<form action="/daka/daka1/submit",method="get" onsubmit="return checkFormDaka()">
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio11" name="daka1Radio" value = "GuangGao">
+					<label class="form-check-label" for="radio11">广告</label>
+				</div>
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio12" name="daka1Radio" value = "HaoYouTuiJian">
+					<label class="form-check-label" for="radio12">好友推荐</label>
+				</div>
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio13" name="daka1Radio" value = "ZiZhuLiaoJie">
+					<label class="form-check-label" for="radio13">自主了解</label>
+				</div>
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio14" name="daka1Radio" value = "GuangDian">
+					<label class="form-check-label" for="radio14">逛店看到的</label>
+				</div>
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio15" name="daka1Radio" value = "ZhiBoDaiHuo">
+					<label class="form-check-label" for="radio15">直播带货</label>
+				</div>
+				<div class="form-check mt-3">
+					<input type="radio" class="form-check-input" id="radio16" name="daka1Radio" value = "QiTa">
+					<label class="form-check-label" for="radio16">其他</label>
+				</div>
+				<br>
+				<button type="submit" class="btn btn-success">提交</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

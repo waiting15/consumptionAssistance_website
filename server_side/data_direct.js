@@ -5,10 +5,10 @@ function loginDirect_index(req,res,username,result) {
 		var dataString = JSON.stringify(result);
 		var data = JSON.parse(dataString);
 		//存储至会话session
-		req.session.userId = data.user_id;
+		req.session.userId = data[0].user_id;
 		req.session.userName = username;
 
-		console.log('user_id = '+req.session.userId);
+		console.log("user_id= "+req.session.userId);
 		res.redirect('/index');
 	}
 	else {
@@ -17,10 +17,30 @@ function loginDirect_index(req,res,username,result) {
 }
 
 function projectList_prosess(req,res,result) {
+/* result = [{project_name,project_id,suggest,budget,initDay,dakatimes,datediff()}] */
+	
 	var dataString = JSON.stringify(result);
-	var data = JSON.parse(dateString);
-	if(data.datediff(curdate(),dakadays)==null) {// 情况：从未打卡
-
+	var data = JSON.parse(dataString);
+	insertIsDaka_toData(data);
+	res.render('project',{projectList: data,username:req.session.userName,isDaka:"今日未打卡"});
+}
+function insertIsDaka_toData(data) {
+	for( p in data ) { //遍历每一个项目,处理是否需要打卡
+		if(data[p].dakatimes == 0) { 
+			data[p]["isDaka"] = "今日未打卡(点击打卡)";
+			continue;
+		}
+		if(data[p].datediff(curdate(),dakadays)>=1&&data[p].dakatimes<3) {
+			data[p]["isDaka"] = "今日未打卡(点击打卡)";
+			continue;
+		}
+		if(data[p].datediff(curdate(),dakadays)<1&&data[p].dakatimes<3) {
+			data[p]["isDaka"] = "今日已完成打卡";
+			continue;
+		}
+		if(data[p].dakatimes == 3) {// 打卡已经完成但未给建议
+			data[p]["isDaka"] = "打卡已完成";
+		}
 	}
 }
 
