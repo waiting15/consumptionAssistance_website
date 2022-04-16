@@ -28,7 +28,6 @@ connection.query(findSql,[4],function(err,result) {
 	var test = ""+0;
 	console.log(typeof test);
 }); */
-test.test1();
 
 
 /*   ----ejs语法用例---- */

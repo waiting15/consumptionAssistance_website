@@ -91,12 +91,12 @@
 
 				<h1 style="float:left;"><%= item.project_name %></h1>
 				<!-- 打卡按钮 -->
-				<button class="btn btn-warning" onclick="">
-					<%= isDaka %>
+				<button class="btn btn-warning" onclick="jumpToDaka(<%=item.isDaka %>,<%=item.dakatimes %>,<%= item.project_id %>,<%= item.project_name %>)">
+					<%= item.isDaka %>
 				</button>
 				<!-- 查看建议按钮 -->
 				<button class="btn btn-success" onclick=""></button>
-				
+
 				<div class="row p-5">
 					<div class="col" id="detailTimestart">立项时间：<%= item.initDay %></div>
 					<div class="col" id="detailBudget">预算：<%= item.budget %></div>
@@ -174,9 +174,11 @@
 <script>
 	/* 实现 项目详情的显示
 	*/
-	$(document).ready(function() {
-
-	});
+	function jumpToDaka(isDaka,dakatimes,project_id,project_name) {
+		if(isDaka == "今日未打卡(点击打卡)") {
+			
+		}
+	}
 	/* 侧边栏 未保存项目id：block_value  项目id：project_value */
 	var block_number = 0;
 	var last_block_type = ""; //储存last选中状态的的类型(block_ 或 project_)

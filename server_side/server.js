@@ -71,3 +71,8 @@ app.post('/register/process',urlencodedParser,function(req,res) {
 var server = app.listen(8888,function() {
 	console.log("server is running");
 });
+
+/* 临时测试 */
+app.get('/test',function(req,res) {
+	res.send("响应成功");
+});
