@@ -91,7 +91,7 @@
 
 				<h1 style="float:left;"><%= item.project_name %></h1>
 				<!-- 打卡按钮 -->
-				<button class="btn btn-warning" onclick="jumpToDaka(<%=item.isDaka %>,<%=item.dakatimes %>,<%= item.project_id %>,<%= item.project_name %>)">
+				<button type="button" class="btn btn-warning" onclick="jumpToDaka('<%=item.isDaka %>',<%=item.dakatimes %>,<%= item.project_id %>,'<%= item.project_name %>')">
 					<%= item.isDaka %>
 				</button>
 				<!-- 查看建议按钮 -->
@@ -176,7 +176,8 @@
 	*/
 	function jumpToDaka(isDaka,dakatimes,project_id,project_name) {
 		if(isDaka == "今日未打卡(点击打卡)") {
-			
+			console.log("触发jumpToDaka");
+			window.location.href='/daka/daka'+(dakatimes+1)+'?projectName='+project_name+'&projectId='+project_id;
 		}
 	}
 	/* 侧边栏 未保存项目id：block_value  项目id：project_value */

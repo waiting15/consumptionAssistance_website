@@ -72,7 +72,9 @@ var server = app.listen(8888,function() {
 	console.log("server is running");
 });
 
-/* 临时测试 */
-app.get('/test',function(req,res) {
-	res.send("响应成功");
-});
+// 测试
+app.get('/test/:projectId/',function(req,res) {
+	console.log("user_id= "+req.params.projectId);
+	console.log("value= "+req.query.daka1Radio);
+	res.end();
+})

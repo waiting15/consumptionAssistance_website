@@ -21,8 +21,16 @@ function projectList_prosess(req,res,result) {
 	
 	var dataString = JSON.stringify(result);
 	var data = JSON.parse(dataString);
-	insertIsDaka_toData(data);
-	res.render('project',{projectList: data,username:req.session.userName,isDaka:"今日未打卡"});
+	/* promise 处理插入isDaka变量，再渲染页面 */
+	new Promise(function(resolve,reject) {
+		var sData = insertIsDaka_toData(data);
+		resolve(sData);
+	}).then(function(data) {
+		res.render('project',{projectList: data,username:req.session.userName});
+	}).catch(function() {
+		console.log("promise发生错误");
+	});
+
 }
 function insertIsDaka_toData(data) {
 	for( p in data ) { //遍历每一个项目,处理是否需要打卡
@@ -42,6 +50,11 @@ function insertIsDaka_toData(data) {
 			data[p]["isDaka"] = "打卡已完成";
 		}
 	}
+	return data;
+}
+
+function suggestProcess() {
+	
 }
 
 module.exports = {

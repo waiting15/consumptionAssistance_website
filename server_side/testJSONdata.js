@@ -5,29 +5,34 @@ var mysql = require('mysql');
 root_config = {
 	host	:'localhost',
 	user	:'root',
-	password:'44200119',
+	password:'442001',
 	database:'consumer'
 };
 /*
-var findSql="select project_name,project.project_id,budget,initDay,dakatimes,datediff(curdate(),dakadays) from project,daka where user_id=?&&project.project_id=daka.project_id";
+new Promise(function(resolve,reject) {
+	var i=1;
+	var a=0;
+	resolve(a);
+	for(var x=10;x>1;x--) {
+		i++;
+	}
+	a=i;
+	//resolve(i);
+}).then(function(value) {
+	console.log(value);
+}) */
+
+var findSql="select daka? from daka where project_id=?";
 var connection = mysql.createConnection( root_config );
 connection.connect();
-connection.query(findSql,[4],function(err,result) {
+connection.query(findSql,[1,2],function(err,result) {
 	if(err) {
 		console.log('[SELECT ERROR',err.message);
 		connection.end();
 		return;
 	}
-
-	var dataString = JSON.stringify(result);
-	var data = JSON.parse(dataString);
-	for ( p in data ) { //遍历每一个项目
-		console.log(data[p]);
-	}
-	connection.end();
-	var test = ""+0;
-	console.log(typeof test);
-}); */
+	console.log(result);
+});
 
 
 /*   ----ejs语法用例---- */

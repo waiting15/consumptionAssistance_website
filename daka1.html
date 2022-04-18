@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/static/jquery-3.6.0.min.js"></script>
 	<title>消费辅助系统_打卡页面</title>
 
 	<style>
@@ -44,32 +45,32 @@
 
 		<!-- 第一天打卡 -->
 		<div class="container border" id="daka1" style="display:block" >
-			<h1>第一天打卡（项目：）</h1>
+			<h1>第一天打卡（项目：<%= project_name %>）</h1>
 			<br>
 			<h2>您是通过什么渠道了解到这款产品的？</h2>
-			<form action="/daka/daka1/submit",method="get" onsubmit="return checkFormDaka()">
+			<form action="/daka/daka1/submit/<%= project_id %>/",method="get" onsubmit="return checkFormDaka()">
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio11" name="daka1Radio" value = "GuangGao">
+					<input type="radio" class="form-check-input" id="radio11" name="daka1Radio" value = 1>
 					<label class="form-check-label" for="radio11">广告</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio12" name="daka1Radio" value = "HaoYouTuiJian">
+					<input type="radio" class="form-check-input" id="radio12" name="daka1Radio" value = 2>
 					<label class="form-check-label" for="radio12">好友推荐</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio13" name="daka1Radio" value = "ZiZhuLiaoJie">
+					<input type="radio" class="form-check-input" id="radio13" name="daka1Radio" value = 3>
 					<label class="form-check-label" for="radio13">自主了解</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio14" name="daka1Radio" value = "GuangDian">
+					<input type="radio" class="form-check-input" id="radio14" name="daka1Radio" value = 4>
 					<label class="form-check-label" for="radio14">逛店看到的</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio15" name="daka1Radio" value = "ZhiBoDaiHuo">
+					<input type="radio" class="form-check-input" id="radio15" name="daka1Radio" value = 5>
 					<label class="form-check-label" for="radio15">直播带货</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio16" name="daka1Radio" value = "QiTa">
+					<input type="radio" class="form-check-input" id="radio16" name="daka1Radio" value = 6>
 					<label class="form-check-label" for="radio16">其他</label>
 				</div>
 				<br>
@@ -78,4 +79,13 @@
 		</div>
 	</div>
 </body>
+<script>
+	function checkFormDaka() {
+		if($(":radio[name=daka1Radio]:checked").length ==0) {
+			alert("您未选择选项，请选择");
+			return false;
+		}
+		else return true;
+	}
+</script>
 </html>

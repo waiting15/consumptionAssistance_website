@@ -46,24 +46,40 @@ function processSuggestion(daka1,daka2,daka3_1,daka3_2) {
 		case 3: pointC+=2;
 		break;
 	}
+	return outputSuggestion(pointA,pointB,pointC);
 
+}
+
+function ouputSuggestion(pointA,pointB,pointC) {
+	console.log("pointA= "+pointA +",pointB= "+pointB+",pointC= "+pointC);
+	var suggest = "";
 	if(pointC > pointB || pointC > pointA) {
 		console.log("不值得购买");
+		suggest= "不值得购买";
+		return suggest;
 	}
 	if(pointA==0) {
 		if((pointB - pointC)>=2) {
 			console.log("可以考虑");
+			suggest= "可以考虑";
+			return suggest;
 		}
 		else {
 			console.log("不建议购买");
+			suggest="不建议购买";
+			return suugest;
 		}
 	}
 	if(pointC==0) {
 		if(pointA>=pointB) {
 			console.log("可以买");
+			suggest="可以买";
+			return suggest;
 		}
 		else {
 			console.log("可以考虑");
+			suggest="可以考虑";
+			return suggest;
 		}
 	}
 }

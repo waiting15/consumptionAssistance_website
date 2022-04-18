@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/static/jquery-3.6.0.min.js"></script>
 	<title>消费辅助系统_打卡页面</title>
 
 	<style>
@@ -39,25 +40,25 @@
 	<div class="container p-5 border">
 		<!-- 第三天打卡 -->
 		<div class="container border" id="daka3" style="display:block;">
-			<h1>第三天打卡（项目：）</h1>
+			<h1>第三天打卡（项目：<%= project_name %>）</h1>
 
-			<form action="/daka/daka3/submit",method="get" onsubmit="return checkFormDaka()">
+			<form action="/daka/daka3/submit/<%= project_id %>/",method="get" onsubmit="return checkFormDaka3()">
 				<br>
 				<h2>[1/2]平时是否有花时间去了解此类产品的各个方面？</h2>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio311" name="daka31Radio" value = "notMuch">
+					<input type="radio" class="form-check-input" id="radio311" name="daka31Radio" value = 1>
 					<label class="form-check-label" for="radio311">
 							几乎没有
 					</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio312" name="daka31Radio" value = "haveSome">
+					<input type="radio" class="form-check-input" id="radio312" name="daka31Radio" value = 2>
 					<label class="form-check-label"for="radio312">
 							有，看了一些网上/朋友的评价
 					</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio313" name="daka31Radio" value = "haveAlot">
+					<input type="radio" class="form-check-input" id="radio313" name="daka31Radio" value = 3>
 					<label class="form-check-label" for="radio313">
 							有，看了很多评价，网上的评测视频也看了很多
 					</label>
@@ -65,19 +66,19 @@
 				<br>
 				<h2>[2/2]购买此产品会对您造成较大的负担吗？（包括精神负担和经济负担）</h2>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio321" name="daka32Radio" value = "notMuch">
+					<input type="radio" class="form-check-input" id="radio321" name="daka32Radio" value = 1>
 					<label class="form-check-label" for="radio321">
 							不会，轻松全款
 					</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio322" name="daka32Radio" value = "haveSome">
+					<input type="radio" class="form-check-input" id="radio322" name="daka32Radio" value = 2>
 					<label class="form-check-label"for="radio322">
 							有一点
 					</label>
 				</div>
 				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio323" name="daka32Radio" value = "haveAlot">
+					<input type="radio" class="form-check-input" id="radio323" name="daka32Radio" value = 3>
 					<label class="form-check-label" for="radio323">
 							有负担，需要分期
 					</label>
@@ -89,4 +90,16 @@
 		</div>
 	</div>
 </body>
+<script>
+	function checkFormDaka3() {
+		var daka31Radio = $(":radio[name=daka31Radio]:checked");
+		var daka32Radio = $(":radio[name=daka32Radio]:checked");
+		if(daka31Radio.length==0 || daka32Radio.length==0) {
+			alert("未选择，请选择");
+			return false;
+		}
+		else return true;
+	}
+
+</script>
 </html>

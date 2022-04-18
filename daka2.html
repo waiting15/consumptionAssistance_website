@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/static/jquery-3.6.0.min.js"></script>
 	<title>消费辅助系统_打卡页面</title>
 
 	<style>
@@ -39,32 +40,32 @@
 	<div class="container p-5 border">
 		<!-- 第二天打卡 -->
 		<div class="container border" id="daka2" style="display:block;">
-			<h1>第二天打卡（项目：）</h1>
+			<h1>第二天打卡（项目：<%= project_name %>）</h1>
 			<div class="container border p-5" id="daka21" style="display:block">
 				<h2>[1/2]是否已有同类产品？</h2>
 				<br>
-				<button type="button" class="btn btn-dark mt-3" onclick="showDaka2(true)">有</button>
-				<button type="button" class="btn btn-dark mt-3" onclick="showDaka2(false)">没有</button>
+				<button type="button" class="btn btn-dark mt-3" onclick="showDaka22(true)">有</button>
+				<button type="button" class="btn btn-dark mt-3" onclick="showDaka22(false)">没有</button>
 			</div>
 
 			<!-- 表单22 -->
-			<div class="container border p-5" id="daka22" style="display:block;">
+			<div class="container border p-5" id="daka22" style="display:none;">
 				<h2>[2/2]为什么还购买同类产品</h2>
-				<form action="/daka/daka22/submit",method="get" onsubmit="return checkFormDaka()">
+				<form action="/daka/daka22/submit/<%= project_id %>/",method="get" onsubmit="return checkFormDaka22()">
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio221" name="daka22Radio" value = "GengXinDieDai">
+						<input type="radio" class="form-check-input" id="radio221" name="daka22Radio" value = "A1">
 						<label class="form-check-label" for="radio221">
 							更新迭代（新功能）
 						</label>
 					</div>
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio222" name="daka22Radio" value = "SunHuai">
+						<input type="radio" class="form-check-input" id="radio222" name="daka22Radio" value = "A2">
 						<label class="form-check-label"for="radio222">
 							已有的同类产品已损坏/老旧
 						</label>
 					</div>
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio223" name="daka22Radio" value = "TryNew">
+						<input type="radio" class="form-check-input" id="radio223" name="daka22Radio" value = "A3">
 						<label class="form-check-label" for="radio223">
 							想尝试不同品牌
 						</label>
@@ -75,23 +76,23 @@
 			</div>
 
 			<!-- 表单23 -->
-			<div class="container border p-5" id="daka23" style="display:block;">
+			<div class="container border p-5" id="daka23" style="display:none;">
 				<h2>[2/2]了解此类产品之前你有这个需求吗</h2>
-				<form action="/daka/daka23/submit",method="get" onsubmit="return checkFormDaka()">
+				<form action="/daka/daka23/submit/<%= project_id %>/",method="get" onsubmit="return checkFormDaka23()">
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio231" name="daka23Radio" value = "noDemands">
+						<input type="radio" class="form-check-input" id="radio231" name="daka23Radio" value = "B1">
 						<label class="form-check-label" for="radio231">
 							没有，买了之后会有这个需求
 						</label>
 					</div>
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio232" name="daka23Radio" value = "KeYouKeWu">
+						<input type="radio" class="form-check-input" id="radio232" name="daka23Radio" value = "B2">
 						<label class="form-check-label"for="radio232">
 							可有可无
 						</label>
 					</div>
 					<div class="form-check mt-3">
-						<input type="radio" class="form-check-input" id="radio233" name="daka23Radio" value = "mustDemands">
+						<input type="radio" class="form-check-input" id="radio233" name="daka23Radio" value = "B3">
 						<label class="form-check-label" for="radio233">
 							只能通过此产品才能满足我的需求
 						</label>
@@ -103,4 +104,32 @@
 		</div>
 	</div>
 </body>
+<script>
+	function showDaka22(isShow22) {
+		if(isShow22) {
+			$("#daka22").css("display","block");
+			$("#daka23").css("display","none");
+		}
+		else {
+			$("#daka23").css("display","block");
+			$("#daka22").css("display","none");
+		}
+	}
+
+	function checkFormDaka22() {
+		if($(":radio[name=daka22Radio]:checked").length == 0) {
+			alert("未选择，请选择");
+			return false;
+		}
+		else return true;
+	}
+	function checkFormDaka23() {
+		if($(":radio[name=daka23Radio]:checked").length == 0) {
+			alert("未选择，请选择");
+			return false;
+		}
+		else return true;
+	}
+
+</script>
 </html>

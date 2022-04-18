@@ -3,7 +3,7 @@
 	root_config = {
 		host	:'localhost',
 		user	:'root',
-		password:'44200119',
+		password:'442001',
 		database:'consumer'
 	};
 
@@ -132,11 +132,53 @@ function user_projectInit(req,res,user_id,project_name,budget,demands) {
 	});
 }
 
+// 储存打卡数据
+function updateDaka(project_id,dakatimes,daka_value) {
+	var connection = mysql.createConnection( root_config );
+	connection.connect();
+	/* 利用project_id直接插入dakadays、dakatimes、daka_value */
+	var updateSql = "update daka set dakatimes=?,dakadays=?,daka?=? where project_id=?";
+	connection.query(updateSql,[dakatimes,curdate(),dakatimes,daka_value,project_id],function(err,result) {
+		if(err) {
+			console.log('[SELECT ERROR] - ',err.message);
+			connection.end();
+			return;
+		}
+		console.log("---- updateDaka ------");
+		console.log("result");
+		console.log("--Done--");
+		connection.end();
+	});
+}
+function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) {
+	var conneciton = mysql.createConnection( root_config );
+	connection.connect();
+	var updateSql = "update daka set dakatimes=?,dakadays=?,daka3_1=?,daka3_2=?,suggest=? where project_id=?";
+	connection.query(updateSql,[dakatimes,curdate(),daka_value1,daka_value2,suggest],function(err,result) {
+		if(err) {
+			console.log('[SELECT ERROR] - ',err.message);
+			connection.end();
+			return;
+		}
+		console.log("---- updateDaka ------");
+		console.log("result");
+		console.log("--Done--");
+		connection.end();
+	});
+}
+function getDakaValue(project_id) {
+	var connection = mysql.createConnection( root_config );
+	connection.connect();
+	var getSql = "select daka1,daka2,"
+}
+
 module.exports = {
 	user_register,
 	user_login,
 	user_projectInit,
-	show_projectList
+	show_projectList,
+	updateDaka,
+	updateDaka3
 }
 
 
