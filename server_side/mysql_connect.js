@@ -150,7 +150,7 @@ function updateDaka(project_id,dakatimes,daka_value) {
 		connection.end();
 	});
 }
-function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) {
+function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) { /* 顺便插入suggest */
 	var conneciton = mysql.createConnection( root_config );
 	connection.connect();
 	var updateSql = "update daka set dakatimes=?,dakadays=?,daka3_1=?,daka3_2=?,suggest=? where project_id=?";
@@ -166,10 +166,22 @@ function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) {
 		connection.end();
 	});
 }
-function getDakaValue(project_id) {
+function getDakaValue1a2(project_id) {
 	var connection = mysql.createConnection( root_config );
 	connection.connect();
-	var getSql = "select daka1,daka2,"
+	var getSql = "select daka1,daka2 from daka where project_id = ?";
+	connection.query(getSql,[project_id],function(err,result) {
+		if(err) {
+			console.log("[SELECT ERROR",err.message);
+			conneciton.end();
+			return false;
+		}
+		var dataString = JSON.stringify(result);
+		var dakaData = JSON.parse(dataString);
+		connection.end();
+		console.log("dakaData = "+dakaData);
+		return dakaData;
+	});
 }
 
 module.exports = {
@@ -178,7 +190,8 @@ module.exports = {
 	user_projectInit,
 	show_projectList,
 	updateDaka,
-	updateDaka3
+	updateDaka3,
+	getDakaValue1a2
 }
 
 

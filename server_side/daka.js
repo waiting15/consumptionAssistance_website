@@ -53,14 +53,18 @@ router.get('/daka23/submit/:projectId/',function(req,res) {
 });
 router.get('/daka3/submit/:projectId/',function(req,res) {
 	var project_id = req.params.projectId;
-	var daka_value1 = req.query.daka31Radio;
-	var daka_value2 = req.query.daka32Radio;
+	var daka3_1 = req.query.daka31Radio;
+	var daka3_2 = req.query.daka32Radio;
 	var dakatimes = 2+1;
-	console.log("daka31_value = "+daka_value1);
-	console.log("daka32_value = "+daka_value2);
-	//返回建议步骤
-	var suggest = processSuggest.processSuggestion()
-
+	console.log("daka3_1 = "+daka3_1);
+	console.log("daka3_2 = "+daka3_2);
+	//生成建议
+	/* 获取daka1、daka2 */
+	var dakaData = mysqlConnect.getDakaValue1a2(project_id);
+	var suggest = processSuggest.processSuggestion(dakaData.daka1,dakaData.daka2,daka3_1,daka3_2);
+	console.log("suggest = "+suggest);
+	//储存数据，更新suggest
+	mysqlConnect.updateDaka3(project_id,dakatimes,daka3_1,daka3_2,suggest);
 });
 
 module.exports = router;

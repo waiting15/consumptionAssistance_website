@@ -53,10 +53,6 @@ function insertIsDaka_toData(data) {
 	return data;
 }
 
-function suggestProcess() {
-	
-}
-
 module.exports = {
 	loginDirect_index,
 	projectList_prosess
