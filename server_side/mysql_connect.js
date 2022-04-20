@@ -75,7 +75,7 @@ function show_projectList(req,res,user_id,callback) {
 	var connection = mysql.createConnection( root_config);
 	connection.connect();
 	//获取project_name、id、立项时间的列表，计算未打卡的项目
-	var getProjectListSql="select project_name,project.project_id,suggest,budget,initDay,dakatimes,datediff(curdate(),dakadays) from project,daka where user_id=?&&project.project_id=daka.project_id";
+	var getProjectListSql="select project_name,project.project_id,suggest,budget,initDay,dakatimes,datediff(curdate(),dakadays) as datediff from project,daka where user_id=?&&project.project_id=daka.project_id";
 	//将结果返回给callback()处理
 	connection.query(getProjectListSql,[user_id],function(err,result) {
 		if(err) {
@@ -137,8 +137,8 @@ function updateDaka(project_id,dakatimes,daka_value) {
 	var connection = mysql.createConnection( root_config );
 	connection.connect();
 	/* 利用project_id直接插入dakadays、dakatimes、daka_value */
-	var updateSql = "update daka set dakatimes=?,dakadays=?,daka?=? where project_id=?";
-	connection.query(updateSql,[dakatimes,curdate(),dakatimes,daka_value,project_id],function(err,result) {
+	var updateSql = "update daka set dakatimes=?,dakadays=curdate(),daka?=? where project_id=?";
+	connection.query(updateSql,[dakatimes,dakatimes,daka_value,project_id],function(err,result) {
 		if(err) {
 			console.log('[SELECT ERROR] - ',err.message);
 			connection.end();
@@ -151,10 +151,10 @@ function updateDaka(project_id,dakatimes,daka_value) {
 	});
 }
 function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) { /* 顺便插入suggest */
-	var conneciton = mysql.createConnection( root_config );
+	var Aconnection = mysql.createConnection( root_config );
 	connection.connect();
-	var updateSql = "update daka set dakatimes=?,dakadays=?,daka3_1=?,daka3_2=?,suggest=? where project_id=?";
-	connection.query(updateSql,[dakatimes,curdate(),daka_value1,daka_value2,suggest],function(err,result) {
+	var updateSql = "update daka set dakatimes=?,dakadays=curdate(),daka3_1=?,daka3_2=?,suggest=? where project_id=?";
+	connection.query(updateSql,[dakatimes,daka_value1,daka_value2,suggest],function(err,result) {
 		if(err) {
 			console.log('[SELECT ERROR] - ',err.message);
 			connection.end();
@@ -170,17 +170,19 @@ function getDakaValue1a2(project_id) {
 	var connection = mysql.createConnection( root_config );
 	connection.connect();
 	var getSql = "select daka1,daka2 from daka where project_id = ?";
-	connection.query(getSql,[project_id],function(err,result) {
-		if(err) {
-			console.log("[SELECT ERROR",err.message);
-			conneciton.end();
-			return false;
-		}
-		var dataString = JSON.stringify(result);
-		var dakaData = JSON.parse(dataString);
-		connection.end();
-		console.log("dakaData = "+dakaData);
-		return dakaData;
+	var dakaData_json;
+	return new Promise(function(resolve,resject) {
+		connection.query(getSql,[project_id],function(err,result) {
+			if(err) {
+				console.log("[SELECT ERROR",err.message);
+				conneciton.end();
+				return false;
+			}
+			var dataString = JSON.stringify(result);
+			dakaData_json = JSON.parse(dataString);
+			resolve(dakaData_json);
+			connection.end();
+		});
 	});
 }
 

@@ -61,10 +61,19 @@ router.get('/daka3/submit/:projectId/',function(req,res) {
 	//生成建议
 	/* 获取daka1、daka2 */
 	var dakaData = mysqlConnect.getDakaValue1a2(project_id);
-	var suggest = processSuggest.processSuggestion(dakaData.daka1,dakaData.daka2,daka3_1,daka3_2);
-	console.log("suggest = "+suggest);
-	//储存数据，更新suggest
-	mysqlConnect.updateDaka3(project_id,dakatimes,daka3_1,daka3_2,suggest);
+	dakaData.then(function(dakaDataValue) {
+		console.log("dakaDataValue = ");
+		console.log(dakaDataValue);
+		var suggest = processSuggest.getSuggest(dakaDataValue[0].daka1,dakaDataValue[0].daka2,daka3_1,daka3_2);
+		console.log(" daka.get/suggest = ");
+		console.log(suggest);
+		return suggest;
+	}).then(function(suggest) {
+		mysqlConnect.updateDaka3(project_id,dakatimes,daka3_1,daka3_2,suggest);
+	}).catch(function(reason) {
+		console.log("/daka3/submit.Promise发生错误 ->"+reason);
+	});
+
 });
 
 module.exports = router;

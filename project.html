@@ -95,7 +95,9 @@
 					<%= item.isDaka %>
 				</button>
 				<!-- 查看建议按钮 -->
-				<button class="btn btn-success" onclick=""></button>
+				<% if(item.suggest) { %>
+				<button class="btn btn-success" onclick="showSuggest(item.suggest)"></button>
+				<% } %>
 
 				<div class="row p-5">
 					<div class="col" id="detailTimestart">立项时间：<%= item.initDay %></div>
@@ -179,6 +181,9 @@
 			console.log("触发jumpToDaka");
 			window.location.href='/daka/daka'+(dakatimes+1)+'?projectName='+project_name+'&projectId='+project_id;
 		}
+	}
+	function showSuggest(suggest) {
+		alert(suggest);
 	}
 	/* 侧边栏 未保存项目id：block_value  项目id：project_value */
 	var block_number = 0;

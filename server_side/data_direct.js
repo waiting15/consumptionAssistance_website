@@ -17,7 +17,7 @@ function loginDirect_index(req,res,username,result) {
 }
 
 function projectList_prosess(req,res,result) {
-/* result = [{project_name,project_id,suggest,budget,initDay,dakatimes,datediff()}] */
+/* result = [{project_name,project_id,suggest,budget,initDay,dakatimes,datediff}] */
 	
 	var dataString = JSON.stringify(result);
 	var data = JSON.parse(dataString);
@@ -27,8 +27,8 @@ function projectList_prosess(req,res,result) {
 		resolve(sData);
 	}).then(function(data) {
 		res.render('project',{projectList: data,username:req.session.userName});
-	}).catch(function() {
-		console.log("promise发生错误");
+	}).catch(function(reason) {
+		console.log("promise发生错误 ->"+reason);
 	});
 
 }
@@ -38,11 +38,11 @@ function insertIsDaka_toData(data) {
 			data[p]["isDaka"] = "今日未打卡(点击打卡)";
 			continue;
 		}
-		if(data[p].datediff(curdate(),dakadays)>=1&&data[p].dakatimes<3) {
+		if(data[p].datediff>=1&&data[p].dakatimes<3) {
 			data[p]["isDaka"] = "今日未打卡(点击打卡)";
 			continue;
 		}
-		if(data[p].datediff(curdate(),dakadays)<1&&data[p].dakatimes<3) {
+		if(data[p].datediff<1&&data[p].dakatimes<3) {
 			data[p]["isDaka"] = "今日已完成打卡";
 			continue;
 		}
