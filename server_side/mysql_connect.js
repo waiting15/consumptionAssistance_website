@@ -151,12 +151,12 @@ function updateDaka(project_id,dakatimes,daka_value) {
 	});
 }
 function updateDaka3(project_id,dakatimes,daka_value1,daka_value2,suggest) { /* 顺便插入suggest */
-	var Aconnection = mysql.createConnection( root_config );
+	var connection = mysql.createConnection( root_config );
 	connection.connect();
-	var updateSql = "update daka set dakatimes=?,dakadays=curdate(),daka3_1=?,daka3_2=?,suggest=? where project_id=?";
-	connection.query(updateSql,[dakatimes,daka_value1,daka_value2,suggest],function(err,result) {
+	var updateSql = "update daka,project set dakatimes=?,dakadays=curdate(),daka3_1=?,daka3_2=?,suggest=? where daka.project_id=?&&daka.project_id=project.project_id";
+	connection.query(updateSql,[dakatimes,daka_value1,daka_value2,suggest,project_id],function(err,result) {
 		if(err) {
-			console.log('[SELECT ERROR] - ',err.message);
+			console.log('[SELECT update ERROR] - ',err.message);
 			connection.end();
 			return;
 		}

@@ -69,34 +69,88 @@ function processSuggestion(daka1,daka2,daka3_1,daka3_2) {
 function outputSuggestion(pointA,pointB,pointC) {
 	console.log("pointA= "+pointA +",pointB= "+pointB+",pointC= "+pointC);
 	var suggest = "";
-	if(pointC > pointB || pointC > pointA) {
-		console.log("不值得购买");
-		suggest= "不值得购买";
-		return suggest;
-	}
-	if(pointA==0) {
-		if((pointB - pointC)>=2) {
+	/* 方案2 */
+	if(pointC<pointA&&pointC<pointB) {
+		if(pointA<pointB) {
 			console.log("可以考虑");
-			suggest= "可以考虑";
+			suggest = "可以考虑";
+			return suggest;
+		}
+		if(pointB<pointA) {
+			console.log("可以买");
+			suggest = "可以买";
+			return suggest;
+		}
+	}
+	if(pointA<pointB&&pointA<pointC) {
+		if(pointB<pointC) {
+			console.log("不值得购买");
+			suggest = "不值得购买";
+			return suggest;
+		}
+		if(pointB-pointC>=2) {
+			console.log("可以考虑");
+			suggest = "可以考虑";
 			return suggest;
 		}
 		else {
 			console.log("不建议购买");
-			suggest="不建议购买";
+			suggest = "不建议购买";
 			return suggest;
 		}
 	}
-	if(pointC==0) {
-		if(pointA>=pointB) {
-			console.log("可以买");
-			suggest="可以买";
+	if(pointB<pointA&&pointB<pointC) {
+		if(pointA<pointC) {
+			console.log("不值得购买");
+			suggest = "不值得购买";
 			return suggest;
 		}
-		else {
+		if(pointC<pointA) {
 			console.log("可以考虑");
-			suggest="可以考虑";
+			suggest = "可以考虑";
 			return suggest;
 		}
+	}
+	if(pointA==pointB) {
+		if(pointA<pointC) {
+			console.log("不值得购买");
+			suggest="不值得购买";
+			return suggest;
+		}
+		if(pointC<pointA) {
+			console.log("可以买");
+			suggest = "可以买";
+			return suggest;
+		}
+	}
+	if(pointA==pointC) {
+		if(pointA<pointB) {
+			console.log("可以考虑购买");
+			suggest= "可以考虑购买";
+			return suggest;
+		}
+		if(pointB<pointA) {
+			console.log("需要认真考虑一下，能不买就不买");
+			suggest = "需要认真考虑一下，能不买就不买";
+			return suggest;
+		}
+	}
+	if(pointB==pointC) {
+		if(pointB<pointA) {
+			console.log("可以购买");
+			suggest = "可以购买";
+			return suggest;
+		}
+		if(pointA<pointB) {
+			console.log("不建议购买");
+			suggest = "不建议购买";
+			return suggest;
+		}
+	}
+	else {
+		console.log("非常抱歉，根据您的情况，暂时无法给出建议");
+		suggest = "非常抱歉，根据您的情况，暂时无法给出建议";
+		return suggest;
 	}
 }
 

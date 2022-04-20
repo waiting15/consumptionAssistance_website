@@ -66,7 +66,6 @@
 		<div class="col-sm-1">  <!-- 侧边栏 -->
 			<div class="sticky-top">
 				<ul id="sidebarlist" class="nav flex-column">
-					<li id="block_0" class="nav-item"><a class="nav-link sidebarblock" role="button">iphone</a></li>
 
 					<!-- 此处为渲染区域 -->
 					<% projectList.forEach(function(item) { %>
@@ -96,8 +95,8 @@
 				</button>
 				<!-- 查看建议按钮 -->
 				<% if(item.suggest) { %>
-				<button class="btn btn-success" onclick="showSuggest(item.suggest)"></button>
-				<% } %>
+				<button class="btn btn-success" onclick="showSuggest('<%=item.suggest%>')">点击查看建议</button>
+				<% }; %>
 
 				<div class="row p-5">
 					<div class="col" id="detailTimestart">立项时间：<%= item.initDay %></div>
