@@ -35,7 +35,8 @@ app.get('/',function(req,res) {
 app.get('/index',function(req,res) {
 	if(req.session.userName) {
 		//用render()渲染，把index_main.html作为模版文件
-		res.render('index_main',{username: req.session.userName});
+		var user_id = req.session.userId;
+		mysqlConnect.show_projectList(req,res,user_id,"index",dataDirect.projectList_process);
 	} else {
 		res.sendFile(path.join(__dirname,'../','index.html'));
 	}
@@ -64,17 +65,13 @@ app.post('/register/process',urlencodedParser,function(req,res) {
 	var user_name = req.body.usr;
 	var user_password = req.body.pwd;
 
-	mysqlConnect.user_register(user_name,user_password);
-	res.end();
+	mysqlConnect.user_register(req,res,user_name,user_password,dataDirect.checkRegister);
 });
 
 var server = app.listen(8888,function() {
 	console.log("server is running");
 });
 
-// 测试
-app.get('/test/:projectId/',function(req,res) {
-	console.log("user_id= "+req.params.projectId);
-	console.log("value= "+req.query.daka1Radio);
-	res.end();
+app.get('/test',function(req,res) {
+	res.send("get it");
 })

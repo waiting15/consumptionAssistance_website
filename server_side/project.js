@@ -9,10 +9,12 @@ router.get('/',function(req,res) {
 		var user_id = req.session.userId;
 	} else {
 		//请重新登录
-		console.log("登陆状态失效，请重新登录");
+		res.setHeader("Content-type","text/html;charset=utf8");
+		res.write("<script language= 'javascript'> alert('登录状态失效，请重新登录');window.location.href='/index';</script>");
+		res.end();
 	}
 	//查找项目信息
-	mysqlConnect.show_projectList(req,res,user_id,dataDirect.projectList_prosess);
+	mysqlConnect.show_projectList(req,res,user_id,"project",dataDirect.projectList_process);
 	//渲染页面，加载项目信息
 });
 

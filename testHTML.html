@@ -5,48 +5,11 @@
 	<title>testHTML</title>
 </head>
 <body>
-	<form action="http://localhost:8888/test/3/" method="get" onsubmit= "return checkForm(this)">
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio11" name="daka1Radio" value = "GuangGao">
-					<label class="form-check-label" for="radio11">广告</label>
-				</div>
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio12" name="daka1Radio" value = "HaoYouTuiJian">
-					<label class="form-check-label" for="radio12">好友推荐</label>
-				</div>
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio13" name="daka1Radio" value = "ZiZhuLiaoJie">
-					<label class="form-check-label" for="radio13">自主了解</label>
-				</div>
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio14" name="daka1Radio" value = "GuangDian">
-					<label class="form-check-label" for="radio14">逛店看到的</label>
-				</div>
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio15" name="daka1Radio" value = "ZhiBoDaiHuo">
-					<label class="form-check-label" for="radio15">直播带货</label>
-				</div>
-				<div class="form-check mt-3">
-					<input type="radio" class="form-check-input" id="radio16" name="daka1Radio" value = "QiTa">
-					<label class="form-check-label" for="radio16">其他</label>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-success">提交</button>
-	</form>
-		<form action="http://localhost:8888/test" method="get" onsubmit= "return checkForm(this)">
-			<input type="radio" id="radiodd" name="daka2Radio" value="ddd">ddd
-			<input type="radio" id="radiobbb" name="daka2Radio" value="bbb">bbb
-			<button type="submit" >submit</button>
-		</form>
+	<div>
+		<h2 style="float:left">v60滤杯</h2><h2 role="button" class = "btn btn-warning">今日未打卡</h2>
 </body>
-	<script src="./client_side/jquery-3.6.0.min.js"></script>
 <script>
-	function checkForm(obj) {
-		if($(":radio[name=daka2Radio]:checked").length == 0) {
-			alert("未选择");
-			return false;
-		}
-		else return true;
-	}
+	alert("djskal");
+	window.location.href='http://localhost:8888/test';
 </script>
 </html>

@@ -8,7 +8,7 @@
 	};
 
 //用户注册操作
-function user_register(username,password) {
+function user_register(req,res,username,password,callback) {
 	var connection = mysql.createConnection(root_config);
 	connection.connect();
 	// 设置sql语句
@@ -24,6 +24,7 @@ function user_register(username,password) {
 	if(result.length) {
 		console.log("user exist");
 		connection.end();
+		callback(req,res,false);
 		return;
 	} else {
 //执行插入操作
@@ -36,6 +37,7 @@ function user_register(username,password) {
 			console.log("----insert----");
 			console.log(result);
 			console.log("注册成功");
+			callback(req,res,true)
 			connection.end();
 		});
 
@@ -71,7 +73,7 @@ function user_login(req,res,username,password,callback) {
 }
 
 /* 拉取项目列表（显示未打卡项目） */
-function show_projectList(req,res,user_id,callback) {
+function show_projectList(req,res,user_id,sendPage,callback) {
 	var connection = mysql.createConnection( root_config);
 	connection.connect();
 	//获取project_name、id、立项时间的列表，计算未打卡的项目
@@ -82,7 +84,7 @@ function show_projectList(req,res,user_id,callback) {
 				console.log('[SELECT ERROR]',err.message);
 				return;
 		}
-		callback(req,res,result);
+		callback(req,res,sendPage,result);
 		connection.end();
 	});
 }

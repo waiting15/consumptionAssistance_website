@@ -65,10 +65,8 @@ router.get('/daka3/submit/:projectId/',function(req,res) {
 	/* 获取daka1、daka2 */
 	var dakaData = mysqlConnect.getDakaValue1a2(project_id);
 	dakaData.then(function(dakaDataValue) {
-		console.log("dakaDataValue = ");
-		console.log(dakaDataValue);
 		var suggest_Promise = processSuggest.getSuggest(dakaDataValue[0].daka1,dakaDataValue[0].daka2,daka3_1,daka3_2);
-		/* suggest 为promise对象 */
+		/* suggest_Promise 为promise对象 */
 		return suggest_Promise;
 	}).then(function(suggest) {
 		mysqlConnect.updateDaka3(project_id,dakatimes,daka3_1,daka3_2,suggest);

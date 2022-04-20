@@ -12,11 +12,26 @@ function loginDirect_index(req,res,username,result) {
 		res.redirect('/index');
 	}
 	else {
-		res.redirect('/index');
+		res.setHeader("Content-type","text/html;charset=utf8");
+		res.write("<script language= 'javascript'> alert('密码错误，请重试');window.location.href='/login';</script>");
+		res.end();
 	}
 }
 
-function projectList_prosess(req,res,result) {
+function checkRegister(req,res,isSuccess) {
+	if(isSuccess) {
+		res.setHeader("Content-type","text/html;charset=utf8");
+		res.write("<script language= 'javascript'> alert('注册成功');window.location.href='/index';</script>");
+		res.end();
+	}
+	else {
+		res.setHeader("Content-type","text/html;charset=utf8");
+		res.write("<script language= 'javascript'> alert('注册失败，请重试');window.location.href='/index';</script>");
+		res.end();
+	}
+}
+
+function projectList_process(req,res,sendPage,result) {
 /* result = [{project_name,project_id,suggest,budget,initDay,dakatimes,datediff}] */
 	
 	var dataString = JSON.stringify(result);
@@ -26,7 +41,12 @@ function projectList_prosess(req,res,result) {
 		var sData = insertIsDaka_toData(data);
 		resolve(sData);
 	}).then(function(data) {
-		res.render('project',{projectList: data,username:req.session.userName});
+		if(sendPage == "project") {
+			res.render('project',{projectList: data,username:req.session.userName});			
+		}
+		if(sendPage == "index") {
+			res.render('index_main',{projectList: data,username:req.session.userName});	
+		}
 	}).catch(function(reason) {
 		console.log("promise发生错误 ->"+reason);
 	});
@@ -55,5 +75,6 @@ function insertIsDaka_toData(data) {
 
 module.exports = {
 	loginDirect_index,
-	projectList_prosess
+	projectList_process,
+	checkRegister
 }
