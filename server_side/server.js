@@ -71,7 +71,3 @@ app.post('/register/process',urlencodedParser,function(req,res) {
 var server = app.listen(8888,function() {
 	console.log("server is running");
 });
-
-app.get('/test',function(req,res) {
-	res.send("get it");
-})
