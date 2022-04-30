@@ -48,9 +48,11 @@
 		<h1 id="projectCount">进行中的项目:</h1>
 		<br>
 		<br>
+		<ul class="list-group">
 		<% projectList.forEach(function(item) { %>
-			<h2><%= item.project_name %></h2>
+			<li class="list-group-item"><h2><%= item.project_name %></h2></li>
 		<% }); %>
+		</ul>
 	</div>
 
 </body>

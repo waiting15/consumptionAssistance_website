@@ -3,7 +3,7 @@
 	root_config = {
 		host	:'localhost',
 		user	:'root',
-		password:'442001',
+		password:'44200119',
 		database:'consumer'
 	};
 
@@ -77,7 +77,7 @@ function show_projectList(req,res,user_id,sendPage,callback) {
 	var connection = mysql.createConnection( root_config);
 	connection.connect();
 	//获取project_name、id、立项时间的列表，计算未打卡的项目
-	var getProjectListSql="select project_name,project.project_id,suggest,budget,initDay,dakatimes,datediff(curdate(),dakadays) as datediff from project,daka where user_id=?&&project.project_id=daka.project_id";
+	var getProjectListSql="select project_name,project.project_id,suggest,budget,demands,initDay,dakatimes,datediff(curdate(),dakadays) as datediff from project,daka where user_id=?&&project.project_id=daka.project_id";
 	//将结果返回给callback()处理
 	connection.query(getProjectListSql,[user_id],function(err,result) {
 		if(err) {

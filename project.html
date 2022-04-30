@@ -102,6 +102,11 @@
 					<div class="col" id="detailTimestart">立项时间：<%= item.initDay %></div>
 					<div class="col" id="detailBudget">预算：<%= item.budget %></div>
 				</div>
+				<!-- 需求 -->
+				<div class="list-group p-2 mb-5">
+					<p class="list-group-item" style="margin:0">需求：</p>
+					<span class="list-group-item"><%= item.demands %></span>
+				</div>
 				<div class="container p-5 border" onclick="" role="button">
 					<h3>贬值情况如何？</h3>
 					<br>
@@ -142,25 +147,6 @@
 						<br>
 						<button type="submit" class="btn btn-success">提交</button>
 					</form>
-				</div>
-				<div class="container p-5 border" onclick="" role="button">
-					<h3>+同类产品对比</h3>
-					<br>
-
-					<!-- 同类产品对比表格 -->
-					<table class="table">
-						<thead>
-							<tr>
-								<th>同类产品名</th>
-								<th>价格</th>
-								<th>优点</th>
-								<th>缺点</th>
-								<th>贬值率</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
 				</div>
 				</div>
 
