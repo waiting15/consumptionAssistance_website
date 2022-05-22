@@ -3,7 +3,7 @@
 	root_config = {
 		host	:'localhost',
 		user	:'root',
-		password:'44200119',
+		password:'442001',
 		database:'consumer'
 	};
 
