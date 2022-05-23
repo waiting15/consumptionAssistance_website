@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const mysqlConnect = require('./mysql_connect');
-const dataDirect = require('./data_direct');
+const mysqlConnect = require('../public/js/mysql_connect');
+const dataDirect = require('../public/js/data_direct');
 const path = require('path');
-const processSuggest = require('./processSuggestion');
+const processSuggest = require('../public/js/processSuggestion');
 
 router.get('/daka1',function(req,res) {
 	/* 传递username,project_name */

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mysqlConnect = require('./mysql_connect');
-const dataDirect = require('./data_direct');
+const mysqlConnect = require('../public/js/mysql_connect');
+const dataDirect = require('../public/js/data_direct');
 
 /* 项目页面请求 */
 router.get('/',function(req,res) {
